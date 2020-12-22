@@ -173,7 +173,7 @@ View_Aria2() {
     raw=$(grep -o "tcp://\{1\}[[:print:]].*,\{1\}" tunnels) && raw=${raw##*/} && raw=${raw%%\"*}
     IPV4=${raw%%:*} && aria2_port=${raw##*:}
     echo -e "\nAria2 简单配置信息：\n
- IPv4 地址\t: ${Green_font_prefix}${IPV4}${Font_color_suffix}
+ IPv4 地址\t: ${Green_font_prefix}http://${IPV4}:${aria2_port}/jsonrpc ${Font_color_suffix}
  RPC 端口\t: ${Green_font_prefix}${aria2_port}${Font_color_suffix}
  RPC 密钥\t: ${Green_font_prefix}${aria2_passwd}${Font_color_suffix}"
 }
