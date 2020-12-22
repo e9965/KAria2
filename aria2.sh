@@ -221,6 +221,7 @@ PASSWD_FILE_INSERT(){
     cat > /bin/pw <<\EOF
 [[ ! -z ${1} ]] && [[ -z $(grep -oE "${1}" /home/conf/passwd.conf) ]] && echo "$1" >> /home/conf/passwd.conf && echo "Success - Insert [${1}] -"    
 EOF
+chmod +rwx /bin/pw
 }
 echo "开始初始化"
 APT_INSTALL > /dev/null 2>&1
