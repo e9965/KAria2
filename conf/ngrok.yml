@@ -1,9 +1,0 @@
-authtoken: 1jamTLHeHJPl6hRK2Lhg8iyYn6p_56mkMEbGcUnyK9S6UbkXT
-region: jp
-tunnels:
-  ssht:
-    proto: tcp
-    addr: 22
-  aria:
-    proto: tcp
-    addr: 6800
