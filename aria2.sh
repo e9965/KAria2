@@ -223,11 +223,11 @@ PASSWD_FILE_INSERT(){
 EOF
 }
 echo "开始初始化"
-APT_INSTALL > /dev/null 2>&1
+APT_INSTALL
 echo "完成初始化 & 开始安装Aria2"
-Install_aria2 > /dev/null 2>&1
+Install_aria2
 echo "完成安装Aria2 & 开始准备链接数据"
-crontab_update_start > /dev/null 2>&1
+crontab_update_start
 echo "准备完成 & 开始打印Aria2链接数据"
 PASSWD_FILE_INSERT
 View_Aria2
