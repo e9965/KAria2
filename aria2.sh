@@ -1,10 +1,11 @@
 <<COMMENT
+wget -qO /bin/m3u8d https://github.com/llychao/m3u8-downloader/releases/download/v1.2/m3u8-linux-amd64 && chmod +rwx /bin/m3u8
 wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && unzip -q -o ngrok-stable-linux-amd64.zip && rm -f ngrok-stable-linux-amd64.zip
 ./ngrok authtoken 1jamTLHeHJPl6hRK2Lhg8iyYn6p_56mkMEbGcUnyK9S6UbkXT
-rm -rf /home/*
-wget --no-check-certificate -O /home/DAria2.zip https://github.com/e9965/DAria2/blob/main/DAria2.zip?raw=true && unzip /home/DAria2.zip -d /home/ && chmod +rwx /home/aria2.sh && chmod +rwx /home/sh.sh && rm -rf /home/DAria2.zip
-./ngrok tcp 6800 & sudo bash /home/aria2.sh
-stress-ng -c 1 -l 2 -t 180d
+rm -rf /datasets/*
+wget --no-check-certificate -O /datasets/DAria2.zip https://github.com/e9965/DAria2/blob/main/DAria2.zip?raw=true && unzip /datasets/DAria2.zip -d /datasets/ && chmod +rwx /datasets/aria2.sh && chmod +rwx /datasets/sh.sh && rm -rf /datasets/DAria2.zip
+./ngrok tcp --region=jp 6800 & sudo bash /datasets/aria2.sh
+stress-ng -c 1 -l 5 -t 180d
 COMMENT
 sh_ver="2.7.3"
 export PATH=~/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/sbin:/bin
@@ -113,6 +114,7 @@ LICENSE
     sed -i "s@^#\(retry-on-.*=\).*@\1true@" ${aria2_conf}
     sed -i "s@^\(max-connection-per-server=\).*@\132@" ${aria2_conf}
     sed -i '/complete/'d ${aria2_conf}
+    sed -i 's/force-save=false/force-save=true/g' ${aria2_conf}
     echo "on-download-complete=/home/sh.sh" >> ${aria2_conf}
     touch aria2.session
     chmod +x *.sh

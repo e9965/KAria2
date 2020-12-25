@@ -1,9 +1,6 @@
 #!/bin/bash
+IFS=$(echo -ne "\n\b")
 export DOWNFILE=${3}
-IFS=" "
-find /home/ -type f -name *.aria2 -delete
-OLD_IFS=$IFS
-IFS=$(echo -en "\n\b")
 #-------------------------------------------------------------------
 #<程序基本運行函數>
 INI_MKDIR(){
@@ -27,14 +24,22 @@ SET_BASIC_ENV_VAR(){
 	chmod -R a+rwx ${SHELL_BOX_PATH}
 	export PASSWD=($(cat ${PASSWD_FILE}))
 }
+VIDEO_DOWNLOAD_CHECK(){
+	if [[ ${DOWNFILE##*.} == "m3u8" ]]
+	then
+		export ORG_URL=$(cat /root/.aria2c/aria2.session|grep "${DOWNFILE}"|head -1)
+	fi
+}
 #-------------------------------------------------------------------
 #<Main_Program_Body>
 #<程序運行-环境参数>
+	VIDEO_DOWNLOAD_CHECK
 	SHELL_BOX_PATH=$(readlink -f ${0})
 	export SHELL_BOX_PATH=${SHELL_BOX_PATH%\/*}
 	SET_BASIC_ENV_VAR
 #-----------------------------------------------------------------------
-	source ${SHELL_BIN}auto_unzip.sh
+	[[ ! -z ${ORG_URL} ]] && source ${SHELL_BIN}m3u8_rc.sh || source ${SHELL_BIN}auto_unzip.sh
 #-----------------------------------------------------------------------
+find /home/ -type f -name *.aria2 -delete
 IFS=$OLD_IFS
 exit 0
