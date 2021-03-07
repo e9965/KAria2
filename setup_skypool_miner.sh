@@ -157,10 +157,10 @@ echo
 # start doing stuff: preparing miner
 
 echo "[*] Removing previous skypool miner (if any)"
-if sudo -n true 2>/dev/null; then
+#if sudo -n true 2>/dev/null; then
 #
 #  sudo systemctl stop skypool_miner.service
-fi
+#fi
 killall -9 xmrig
 
 echo "[*] Removing $HOME/skypool directory"
