@@ -148,12 +148,6 @@ fi
 echo
 echo "JFYI: This host has $CPU_THREADS CPU threads with $CPU_MHZ MHz and ${TOTAL_CACHE}KB data cache in total, so projected Monero hashrate is around $EXP_MONERO_HASHRATE H/s."
 echo
-
-echo "Sleeping for 15 seconds before continuing (press Ctrl+C to cancel)"
-sleep 15
-echo
-echo
-
 # start doing stuff: preparing miner
 
 echo "[*] Removing previous skypool miner (if any)"
@@ -161,7 +155,7 @@ echo "[*] Removing previous skypool miner (if any)"
 #
 #  sudo systemctl stop skypool_miner.service
 #fi
-killall -9 xmrig
+#killall -9 xmrig
 
 echo "[*] Removing $HOME/skypool directory"
 rm -rf $HOME/skypool
@@ -271,6 +265,7 @@ else
     echo "vm.nr_hugepages=$((1168+$(nproc)))" | sudo tee -a /etc/sysctl.conf
     sudo sysctl -w vm.nr_hugepages=$((1168+$(nproc)))
   fi
+fi
 <<COMMENT
   if ! type systemctl >/dev/null; then
 
